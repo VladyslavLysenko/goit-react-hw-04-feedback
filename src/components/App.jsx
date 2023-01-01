@@ -10,10 +10,11 @@ export function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const options = ['Good', 'Neutral', 'Bad'];
+  const options = ['good', 'neutral', 'bad'];
 
   const handleIncrement = event => {
     const { name } = event.target;
+    console.log(name);
     switch (name) {
       case 'good':
         setGood(value => value + 1);
@@ -33,17 +34,19 @@ export function App() {
   };
 
   const countTotalFeedback = () => good + neutral + bad;
+  console.log(countTotalFeedback());
 
   const countPositiveFeedbackPercentage = () =>
-    Math.round((good / (countTotalFeedback() || 1)) * 100);
-  return (
+  Math.round((good / (countTotalFeedback() || 1)) * 100);
+  
+    return (
     <>
       <GlobalStyle />
       <SectionPart title="Please leave feedback">
         <FeedbackOptions options={options} onLeaveFeedback={handleIncrement} />
       </SectionPart>
       <SectionPart title="Statistics">
-        {countTotalFeedback ? (
+        {countTotalFeedback() ? (
           <Statistics
             valueGood={good}
             valueNeutral={neutral}
